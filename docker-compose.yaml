@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  java-app:
+    image: openjdk:21
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: java -jar app.jar
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: dbplataforma
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 12345
