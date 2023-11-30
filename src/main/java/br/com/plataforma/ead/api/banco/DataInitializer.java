@@ -2,9 +2,11 @@ package br.com.plataforma.ead.api.banco;
 
 
 import br.com.plataforma.ead.api.colecoes.*;
+import br.com.plataforma.ead.api.enums.SituacaoCurso;
 import br.com.plataforma.ead.api.repositorios.CorRepository;
 import br.com.plataforma.ead.api.repositorios.CursoRepository;
 import br.com.plataforma.ead.api.repositorios.PerfilRepository;
+import br.com.plataforma.ead.api.servicos.UsuarioCursoService;
 import br.com.plataforma.ead.api.servicos.UsuarioService;
 import br.com.plataforma.ead.api.servicos.AgrupamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class DataInitializer implements CommandLineRunner {
     public static final String MASCULINO = "Masculino";
 
 
-    private CursoRepository cursoRepository;
+    private final CursoRepository cursoRepository;
 
 
     private final UsuarioService usuarioService;
@@ -34,15 +36,18 @@ public class DataInitializer implements CommandLineRunner {
 
     private final CorRepository corRepository;
 
+    private final UsuarioCursoService usuarioCursoService;
 
 
     @Autowired
-    public DataInitializer(CursoRepository cursoRepository, UsuarioService usuarioService, PerfilRepository perfilRepository, AgrupamentoService agrupamentoService, CorRepository corRepository) {
+    public DataInitializer(CursoRepository cursoRepository, UsuarioService usuarioService, PerfilRepository perfilRepository, AgrupamentoService agrupamentoService, CorRepository corRepository, UsuarioCursoService usuarioCursoService) {
         this.cursoRepository = cursoRepository;
         this.usuarioService = usuarioService;
         this.perfilRepository = perfilRepository;
         this.agrupamentoService = agrupamentoService;
         this.corRepository = corRepository;
+        this.usuarioCursoService = usuarioCursoService;
+
     }
 
     @Override
@@ -52,7 +57,25 @@ public class DataInitializer implements CommandLineRunner {
         carregarPerfis();
         carregarAgrupamentos();
         carregarCores();
+        carregarUsuarioCurso();
 
+    }
+
+    private void carregarUsuarioCurso() {
+        // Criar instâncias de UsuarioCurso associadas ao Usuario de ID "4" (no seu caso, o usuário 4)
+        UsuarioCurso usuarioCurso1 = new UsuarioCurso();
+        usuarioCurso1.setUsuarioId("4");
+        usuarioCurso1.setCursoId("1");
+        usuarioCurso1.setSituacao(SituacaoCurso.CONCLUIDO);
+
+        UsuarioCurso usuarioCurso2 = new UsuarioCurso();
+        usuarioCurso2.setUsuarioId("4");
+        usuarioCurso2.setCursoId("2");
+        usuarioCurso2.setSituacao(SituacaoCurso.EM_ANDAMENTO);
+
+        // Salvar os registros de UsuarioCurso
+        usuarioCursoService.salvar(usuarioCurso1);
+        usuarioCursoService.salvar(usuarioCurso2);
     }
 
     private void carregarCores() {
@@ -86,27 +109,27 @@ public class DataInitializer implements CommandLineRunner {
 
     private void carregarCursos() {
         Curso curso1 = new Curso();
+        curso1.setId("1");
         curso1.setTitulo("Curso de Programação");
         curso1.setProgresso(25);
-        curso1.setConquistas(Arrays.asList("Conquista 1", "Conquista 2"));
         curso1.setDescricaoResumida("Descrição resumida do curso 1");
         curso1.setDescricaoCompleta("Descrição completa do curso 1");
         curso1.setCor("Azul");
         curso1.setAgrupamento("Agrupamento 1");
 
         Curso curso2 = new Curso();
+        curso2.setId("2");
         curso2.setTitulo("Curso de Matemática");
         curso2.setProgresso(50);
-        curso2.setConquistas(Arrays.asList("Conquista 3", "Conquista 4"));
         curso2.setDescricaoResumida("Descrição resumida do curso 2");
         curso2.setDescricaoCompleta("Descrição completa do curso 2");
         curso2.setCor("Verde");
         curso2.setAgrupamento("Agrupamento 2");
 
         Curso curso3 = new Curso();
+        curso3.setId("3");
         curso3.setTitulo("Curso de História");
         curso3.setProgresso(75);
-        curso3.setConquistas(Arrays.asList("Conquista 5", "Conquista 6"));
         curso3.setDescricaoResumida("Descrição resumida do curso 3");
         curso3.setDescricaoCompleta("Descrição completa do curso 3");
         curso3.setCor("Vermelho");

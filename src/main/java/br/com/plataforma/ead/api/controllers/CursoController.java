@@ -19,8 +19,8 @@ public class CursoController {
         this.cursoRepository = cursoRepository;
     }
 
-    @PostMapping
-    public Curso criarCurso(@RequestBody Curso curso) {
+    @PostMapping("/cadastrar")
+    public Curso cadastrar(@RequestBody Curso curso) {
         return cursoRepository.save(curso);
     }
 
