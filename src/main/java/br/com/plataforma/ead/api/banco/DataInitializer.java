@@ -1,13 +1,11 @@
 package br.com.plataforma.ead.api.banco;
 
 
-import br.com.plataforma.ead.api.colecoes.Agrupamento;
-import br.com.plataforma.ead.api.colecoes.Curso;
-import br.com.plataforma.ead.api.colecoes.Perfil;
-import br.com.plataforma.ead.api.colecoes.Usuario;
+import br.com.plataforma.ead.api.colecoes.*;
+import br.com.plataforma.ead.api.repositorios.CorRepository;
 import br.com.plataforma.ead.api.repositorios.CursoRepository;
 import br.com.plataforma.ead.api.repositorios.PerfilRepository;
-import br.com.plataforma.ead.api.services.UsuarioService;
+import br.com.plataforma.ead.api.servicos.UsuarioService;
 import br.com.plataforma.ead.api.servicos.AgrupamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -26,20 +25,24 @@ public class DataInitializer implements CommandLineRunner {
     private CursoRepository cursoRepository;
 
 
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
-    private PerfilRepository perfilRepository;
+    private final PerfilRepository perfilRepository;
 
 
-    private AgrupamentoService agrupamentoService;
+    private final AgrupamentoService agrupamentoService;
+
+    private final CorRepository corRepository;
+
 
 
     @Autowired
-    public DataInitializer(CursoRepository cursoRepository, UsuarioService usuarioService, PerfilRepository perfilRepository, AgrupamentoService agrupamentoService) {
+    public DataInitializer(CursoRepository cursoRepository, UsuarioService usuarioService, PerfilRepository perfilRepository, AgrupamentoService agrupamentoService, CorRepository corRepository) {
         this.cursoRepository = cursoRepository;
         this.usuarioService = usuarioService;
         this.perfilRepository = perfilRepository;
         this.agrupamentoService = agrupamentoService;
+        this.corRepository = corRepository;
     }
 
     @Override
@@ -48,8 +51,23 @@ public class DataInitializer implements CommandLineRunner {
         carregarListaUsuario();
         carregarPerfis();
         carregarAgrupamentos();
+        carregarCores();
 
     }
+
+    private void carregarCores() {
+        List<Cor> coresPredefinidas = Arrays.asList(
+                new Cor("Azul", "bg-primary"),
+                new Cor("Verde", "bg-success"),
+                new Cor("Vermelho", "bg-danger"),
+                new Cor("Amarelo", "bg-warning"),
+                new Cor("Cinza", "bg-secondary"),
+                new Cor("Preto", "bg-secondary")
+        );
+
+        corRepository.saveAll(coresPredefinidas);
+    }
+
     private void carregarPerfis() {
         Perfil perfil1 = new Perfil("1", "ROLE_ADMIN");
         Perfil perfil2 = new Perfil("2", "ROLE_ALUNO");

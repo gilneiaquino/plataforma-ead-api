@@ -9,7 +9,7 @@ import br.com.plataforma.ead.api.config.MessageUtil;
 import br.com.plataforma.ead.api.dtos.LoginDto;
 import br.com.plataforma.ead.api.dtos.SenhaDto;
 import br.com.plataforma.ead.api.repositorios.InvalidTokenRepository;
-import br.com.plataforma.ead.api.services.UsuarioService;
+import br.com.plataforma.ead.api.servicos.UsuarioService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

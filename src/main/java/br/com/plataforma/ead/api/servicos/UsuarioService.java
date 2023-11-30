@@ -1,4 +1,4 @@
-package br.com.plataforma.ead.api.services;
+package br.com.plataforma.ead.api.servicos;
 
 
 import br.com.plataforma.ead.api.colecoes.Endereco;

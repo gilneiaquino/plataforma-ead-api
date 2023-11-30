@@ -13,12 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/agrupamentos", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
-public class AgrupamentoResource {
+public class AgrupamentoController {
 
     private final AgrupamentoService agrupamentoService;
 
     @Autowired
-    public AgrupamentoResource(AgrupamentoService agrupamentoService) {
+    public AgrupamentoController(AgrupamentoService agrupamentoService) {
         this.agrupamentoService = agrupamentoService;
     }
 

@@ -4,7 +4,7 @@ import br.com.plataforma.ead.api.colecoes.Usuario;
 import br.com.plataforma.ead.api.config.JwtResponse;
 import br.com.plataforma.ead.api.config.JwtTokenUtil;
 import br.com.plataforma.ead.api.dtos.LoginDto;
-import br.com.plataforma.ead.api.services.UsuarioService;
+import br.com.plataforma.ead.api.servicos.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
