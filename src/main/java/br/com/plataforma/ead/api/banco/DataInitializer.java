@@ -1,12 +1,14 @@
 package br.com.plataforma.ead.api.banco;
 
 
+import br.com.plataforma.ead.api.colecoes.Agrupamento;
 import br.com.plataforma.ead.api.colecoes.Curso;
 import br.com.plataforma.ead.api.colecoes.Perfil;
 import br.com.plataforma.ead.api.colecoes.Usuario;
 import br.com.plataforma.ead.api.repositorios.CursoRepository;
 import br.com.plataforma.ead.api.repositorios.PerfilRepository;
 import br.com.plataforma.ead.api.services.UsuarioService;
+import br.com.plataforma.ead.api.servicos.AgrupamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,21 +22,32 @@ public class DataInitializer implements CommandLineRunner {
 
     public static final String MASCULINO = "Masculino";
 
-    @Autowired
+
     private CursoRepository cursoRepository;
 
-    @Autowired
+
     private UsuarioService usuarioService;
 
-    @Autowired
     private PerfilRepository perfilRepository;
 
+
+    private AgrupamentoService agrupamentoService;
+
+
+    @Autowired
+    public DataInitializer(CursoRepository cursoRepository, UsuarioService usuarioService, PerfilRepository perfilRepository, AgrupamentoService agrupamentoService) {
+        this.cursoRepository = cursoRepository;
+        this.usuarioService = usuarioService;
+        this.perfilRepository = perfilRepository;
+        this.agrupamentoService = agrupamentoService;
+    }
 
     @Override
     public void run(String... args) throws Exception {
         carregarCursos();
         carregarListaUsuario();
         carregarPerfis();
+        carregarAgrupamentos();
 
     }
     private void carregarPerfis() {
@@ -43,6 +56,14 @@ public class DataInitializer implements CommandLineRunner {
         Perfil perfil3 = new Perfil("3", "ROLE_PROFESSOR");
 
         perfilRepository.saveAll(Arrays.asList(perfil1, perfil2, perfil3));
+    }
+
+    private void carregarAgrupamentos() {
+        Agrupamento agrupamento1 = new Agrupamento("1", "Front End");
+        Agrupamento agrupamento2 = new Agrupamento("2", "backend");
+        Agrupamento agrupamento3 = new Agrupamento("3", "Outros");
+
+        agrupamentoService.salvarTodos(Arrays.asList(agrupamento1, agrupamento2, agrupamento3));
     }
 
     private void carregarCursos() {
