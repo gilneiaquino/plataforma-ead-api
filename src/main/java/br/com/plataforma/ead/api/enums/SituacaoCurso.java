@@ -1,8 +1,11 @@
 package br.com.plataforma.ead.api.enums;
 
 public enum SituacaoCurso {
-    CONCLUIDO,
+
+    INSCRITO,
     EM_ANDAMENTO,
+    CONCLUIDO,
+
     // Outros estados do curso
 }
 

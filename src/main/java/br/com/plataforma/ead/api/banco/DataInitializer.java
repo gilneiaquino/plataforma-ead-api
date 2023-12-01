@@ -108,35 +108,32 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void carregarCursos() {
-        Curso curso1 = new Curso();
-        curso1.setId("1");
-        curso1.setTitulo("Curso de Programação");
-        curso1.setProgresso(25);
-        curso1.setDescricaoResumida("Descrição resumida do curso 1");
-        curso1.setDescricaoCompleta("Descrição completa do curso 1");
-        curso1.setCor("Azul");
-        curso1.setAgrupamento("Agrupamento 1");
+        List<String> areasTI = Arrays.asList(
+                "Java", "PHP", "UX", "Banco de Dados MYSQL", "SQL", "DevOps", "JavaScript",
+                "Redes de Computadores", "Segurança da Informação", "Cloud Computing",
+                "Desenvolvimento Web", "Inteligência Artificial", "Machine Learning",
+                "Data Science", "Blockchain"
+        );
 
-        Curso curso2 = new Curso();
-        curso2.setId("2");
-        curso2.setTitulo("Curso de Matemática");
-        curso2.setProgresso(50);
-        curso2.setDescricaoResumida("Descrição resumida do curso 2");
-        curso2.setDescricaoCompleta("Descrição completa do curso 2");
-        curso2.setCor("Verde");
-        curso2.setAgrupamento("Agrupamento 2");
+        List<Curso> cursosTI = new ArrayList<>();
 
-        Curso curso3 = new Curso();
-        curso3.setId("3");
-        curso3.setTitulo("Curso de História");
-        curso3.setProgresso(75);
-        curso3.setDescricaoResumida("Descrição resumida do curso 3");
-        curso3.setDescricaoCompleta("Descrição completa do curso 3");
-        curso3.setCor("Vermelho");
-        curso3.setAgrupamento("Agrupamento 3");
+        int i = 1;
+        for (String area : areasTI) {
+            Curso curso = new Curso();
+            curso.setId(String.valueOf(i));
+            curso.setTitulo("Curso de " + area);
+            curso.setProgresso(0); // Definir progresso inicial como 0
+            curso.setDescricaoResumida("Este é um curso de " + area + " destinado a desenvolvedores interessados em aprender mais sobre essa tecnologia.");
+            curso.setDescricaoCompleta("O curso de " + area + " abrange tópicos avançados e práticos para desenvolvedores em todos os níveis, desde iniciantes até avançados. Inclui módulos de aprendizado prático, projetos e avaliações.");
+            curso.setCor("bg-success");
+            curso.setAgrupamento("Área de TI");
 
-        // Salvar os cursos no MongoDB
-        cursoRepository.saveAll(Arrays.asList(curso1, curso2, curso3));
+            cursosTI.add(curso);
+            i++;
+        }
+
+        // Salvar os cursos de TI no MongoDB
+        cursoRepository.saveAll(cursosTI);
     }
 
 
