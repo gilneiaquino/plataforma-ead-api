@@ -1,9 +1,14 @@
 package br.com.plataforma.ead.api.controllers;
 
 import br.com.plataforma.ead.api.colecoes.Curso;
+import br.com.plataforma.ead.api.colecoes.Usuario;
 import br.com.plataforma.ead.api.repositorios.CursoRepository;
+import br.com.plataforma.ead.api.servicos.CursoService;
+import br.com.plataforma.ead.api.servicos.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,36 +17,40 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/api/cursos" , produces = MediaType.APPLICATION_JSON_VALUE)
 public class CursoController {
-    private final CursoRepository cursoRepository;
 
-    @Autowired
-    public CursoController(CursoRepository cursoRepository) {
-        this.cursoRepository = cursoRepository;
+    private final CursoService cursoService;
+    public CursoController(CursoService cursoService, UsuarioService usuarioService) {
+        this.cursoService = cursoService;
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/cadastro")
     public Curso cadastrar(@RequestBody Curso curso) {
-        return cursoRepository.save(curso);
+        return this.cursoService.salvar(curso);
     }
 
     @GetMapping
     public List<Curso> listarCursos() {
-        return cursoRepository.findAll();
+        return cursoService.buscarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Curso> buscarCurso(@PathVariable String id) {
-        return cursoRepository.findById(id);
+    public Curso buscarCurso(@PathVariable String id) {
+        return cursoService.buscarCurso(id);
     }
 
     @PutMapping("/{id}")
     public Curso atualizarCurso(@PathVariable String id, @RequestBody Curso curso) {
         curso.setId(id);
-        return cursoRepository.save(curso);
+        return cursoService.salvar(curso);
     }
 
     @DeleteMapping("/{id}")
     public void deletarCurso(@PathVariable String id) {
-        cursoRepository.deleteById(id);
+        cursoService.deletarPorId(id);
+    }
+
+    @PostMapping("/{cursoId}/inscricao")
+    public ResponseEntity<String> inscreverUsuarioNoCurso(@PathVariable String cursoId, @RequestHeader("Authorization") String token) {
+        return cursoService.inscreverCurso(cursoId,token);
     }
 }

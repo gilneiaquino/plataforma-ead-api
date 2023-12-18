@@ -12,6 +12,15 @@ public class UsuarioCurso {
     private String usuarioId; // Chave estrangeira para Usuario (ou Aluno)
     private String cursoId; // Chave estrangeira para Curso
     private SituacaoCurso situacao;
+
+    public UsuarioCurso(String usuarioId, String cursoId) {
+        this.usuarioId = usuarioId;
+        this.cursoId = cursoId;
+    }
+    public UsuarioCurso() {
+        super();
+    }
+
     public String getId() {
         return id;
     }

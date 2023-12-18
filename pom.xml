@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com</groupId>
 	<artifactId>plataforma-ead-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>plataforma-ead-api</name>
 	<description>Projeto Spring Boot</description>
 	<properties>
