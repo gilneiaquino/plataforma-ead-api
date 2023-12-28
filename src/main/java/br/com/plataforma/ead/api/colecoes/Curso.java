@@ -1,5 +1,7 @@
 package br.com.plataforma.ead.api.colecoes;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,14 +9,29 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Curso {
     @Id
     private String id;
+
+    @NotBlank(message = "O titulo não pode estar em branco.")
+    @NotNull(message = "O titulo não pode ser nulo.")
     private String titulo;
-    private int progresso;
+    private String progresso;
+
+    @NotBlank(message = "A descrição resumida não pode estar em branco.")
+    @NotNull(message = "A descrição resumida não pode ser nulo.")
     private String descricaoResumida;
     private String descricaoCompleta;
+
+    @NotBlank(message = "A cor do curso não pode estar em branco.")
+    @NotNull(message = "A cor do curso não pode ser nulo.")
     private String cor;
+
+    @NotBlank(message = "O agrupamento não pode estar em branco.")
+    @NotNull(message = "O agrupamento não pode ser nulo.")
     private String agrupamento;
 
-    public Curso(String id, String titulo, int progresso, String descricaoResumida, String descricaoCompleta, String cor, String agrupamento) {
+    public Curso() {
+    }
+
+    public Curso(String id, String titulo, String progresso, String descricaoResumida, String descricaoCompleta, String cor, String agrupamento) {
         this.id = id;
         this.titulo = titulo;
         this.progresso = progresso;
@@ -22,10 +39,6 @@ public class Curso {
         this.descricaoCompleta = descricaoCompleta;
         this.cor = cor;
         this.agrupamento = agrupamento;
-    }
-
-    public Curso(){
-        super();
     }
 
     public String getId() {
@@ -44,11 +57,11 @@ public class Curso {
         this.titulo = titulo;
     }
 
-    public int getProgresso() {
+    public String getProgresso() {
         return progresso;
     }
 
-    public void setProgresso(int progresso) {
+    public void setProgresso(String progresso) {
         this.progresso = progresso;
     }
 

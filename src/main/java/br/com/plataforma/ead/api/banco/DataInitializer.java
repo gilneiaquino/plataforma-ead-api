@@ -122,7 +122,7 @@ public class DataInitializer implements CommandLineRunner {
             Curso curso = new Curso();
             curso.setId(String.valueOf(i));
             curso.setTitulo("Curso de " + area);
-            curso.setProgresso(0); // Definir progresso inicial como 0
+            curso.setProgresso("0"); // Definir progresso inicial como 0
             curso.setDescricaoResumida("Este é um curso de " + area + " destinado a desenvolvedores interessados em aprender mais sobre essa tecnologia.");
             curso.setDescricaoCompleta("O curso de " + area + " abrange tópicos avançados e práticos para desenvolvedores em todos os níveis, desde iniciantes até avançados. Inclui módulos de aprendizado prático, projetos e avaliações.");
             curso.setCor("bg-success");

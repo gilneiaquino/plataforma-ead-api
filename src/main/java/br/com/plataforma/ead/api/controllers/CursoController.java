@@ -5,10 +5,12 @@ import br.com.plataforma.ead.api.colecoes.Usuario;
 import br.com.plataforma.ead.api.repositorios.CursoRepository;
 import br.com.plataforma.ead.api.servicos.CursoService;
 import br.com.plataforma.ead.api.servicos.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/cursos" , produces = MediaType.APPLICATION_JSON_VALUE)
+@Validated
 public class CursoController {
 
     private final CursoService cursoService;
@@ -23,8 +26,8 @@ public class CursoController {
         this.cursoService = cursoService;
     }
 
-    @PostMapping("/cadastro")
-    public Curso cadastrar(@RequestBody Curso curso) {
+    @PostMapping("/salvar")
+    public Curso salvar(@Valid @RequestBody Curso curso) {
         return this.cursoService.salvar(curso);
     }
 
